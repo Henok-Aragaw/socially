@@ -4,7 +4,6 @@ import {clerkMiddleware} from "@clerk/express"
 
 
 import userRouter from './routes/user.route.js';
-
 import { connectDB } from './config/db.js';
 import { ENV } from './config/env.js';
 
