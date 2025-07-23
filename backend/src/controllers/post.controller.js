@@ -3,7 +3,8 @@ import Post from "../models/post.model.js"
 import { getAuth} from "@clerk/express";
 import User from "../models/user.model.js";
 import Notification from "../models/notification.model.js";
-
+import cloudinary from "../config/cloudinary.js";
+import Comment from "../models/comment.model.js";
 
 
 export const getPosts = asyncHandler (async(req,res) => {
@@ -65,7 +66,7 @@ export const getUserPosts = asyncHandler(async(req,res) => {
 export const createPost = asyncHandler(async(req,res) => {
     const {userId} = getAuth(req);
     const {content} = req.body;
-    const imageFile = req.filter;
+    const imageFile = req.file;
     
     if(!content && !imageFile) return res.status(400).json({error: "Please provide content or image"});
 
