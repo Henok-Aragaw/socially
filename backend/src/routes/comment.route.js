@@ -6,7 +6,7 @@ import { createComment, getComments, deleteComment } from "../controllers/commen
 const router = express.Router();
 
 //public routes
-router.get("/post/:postId", createComment);
+router.get("/post/:postId", getComments);
 
 
 //protected routes
