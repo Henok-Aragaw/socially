@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "dev":"node --watch src/server.js",
-    "start":"node src/server.js",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,9 +16,12 @@
     "@arcjet/inspect": "^1.0.0-beta.9",
     "@arcjet/node": "^1.0.0-beta.9",
     "@clerk/express": "^1.7.8",
+    "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
-    "mongoose": "^8.16.3"
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^8.16.3",
+    "multer": "^2.0.2"
   }
 }
