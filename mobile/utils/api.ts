@@ -1,13 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 import { useAuth } from "@clerk/clerk-expo";
 
-const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || "https://x-clone-rn.vercel.app/api";
-// ! 🔥 localhost api would not work on your actual physical device
-// const API_BASE_URL = "http://localhost:5001/api";
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
 
 // this will basically create an authenticated api, pass the token into our headers
 export const createApiClient = (getToken: () => Promise<string | null>): AxiosInstance => {
-  const api = axios.create({ baseURL: API_BASE_URL });
+  const api = axios.create({ baseURL: API_BASE_URL, headers:{ 'Content-Type': 'application/json', "User-Agent":"Tweek-App/1.0.0"} });
 
   api.interceptors.request.use(async (config) => {
     const token = await getToken();

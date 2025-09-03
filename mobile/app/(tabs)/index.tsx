@@ -1,6 +1,8 @@
 import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useUserSync } from '@/hooks/use-user-async';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 
 const HomeScreen = () => {
     const [isRefetching, setIsRefetching ] = useState(false);
@@ -8,9 +10,12 @@ const HomeScreen = () => {
     useUserSync();
     
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <Ionicons />
+        <Text>Home</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 
