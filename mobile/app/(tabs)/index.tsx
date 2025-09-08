@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, RefreshControl } from 'react-native'
 import React, { useState } from 'react'
 import { useUserSync } from '@/hooks/use-user-async';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,7 +20,17 @@ const HomeScreen = () => {
         <SignOutButton />
       </View>
 
-      <ScrollView>
+      <ScrollView
+       showsVerticalScrollIndicator={false}
+       className='flex-1'
+       contentContainerStyle={{paddingBottom: 80}}
+       refreshControl={
+        <RefreshControl
+        refreshing={isRefetching}
+        tintColor={'#1DA1F2'}
+        />
+       }
+      >
         <PostComposer />
         <PostList />
       </ScrollView>
