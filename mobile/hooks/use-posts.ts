@@ -36,9 +36,12 @@ export const usePosts = (username?: string) => {
     },
   });
 
-  const checkIsLiked = (postLikes: string[], currentUser: any) => {
-    const isLiked = currentUser && postLikes.includes(currentUser._id);
-    return isLiked;
+  // ✅ Updated check to handle ObjectId OR string
+  const checkIsLiked = (postLikes: any[], currentUser: any) => {
+    if (!currentUser) return false;
+    return postLikes?.some(
+      (id) => id?.toString() === currentUser._id?.toString()
+    );
   };
 
   return {

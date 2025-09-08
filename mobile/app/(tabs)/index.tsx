@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import SignOutButton from '@/components/sign-out-button';
 import PostComposer from '@/components/post-conposer';
+import PostList from '@/components/post-list';
 
 const HomeScreen = () => {
     const [isRefetching, setIsRefetching ] = useState(false);
@@ -21,6 +22,7 @@ const HomeScreen = () => {
 
       <ScrollView>
         <PostComposer />
+        <PostList />
       </ScrollView>
     </SafeAreaView>
   )
