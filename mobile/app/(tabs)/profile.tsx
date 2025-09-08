@@ -1,14 +1,34 @@
-import { View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, RefreshControl } from 'react-native'
 import { useCurrentUser } from '@/hooks/use-current-user'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import SignOutButton from '@/components/sign-out-button';
 import { Feather } from '@expo/vector-icons';
 import { format } from "date-fns"
+import { useProfile } from '@/hooks/user-profile';
+import { usePosts } from '@/hooks/use-posts';
+import PostsList from '@/components/post-list';
+import EditProfile from '@/components/edit-profile';
 
 
 const Profile = () => {
     const { currentUser, isLoading } = useCurrentUser();
     const insets = useSafeAreaInsets();
+
+    const {
+        posts,
+        refetch:refetchPosts,
+        isLoading:isRefetching
+    } = usePosts();
+    const {
+        isEditModalVisible,
+        openEditModal,
+        closeEditModal,
+        formData,
+        saveProfile,
+        updateFormField,
+        isUpdating,
+        refetch: refetchProfile
+    } = useProfile();
 
     if(isLoading) {
         return (
@@ -35,6 +55,16 @@ const Profile = () => {
             paddingBottom: 100 + insets.bottom
          }}
          showsVerticalScrollIndicator={false}
+         refreshControl={
+            <RefreshControl
+             refreshing={isRefetching}
+             onRefresh={() => {
+                refetchProfile();
+                refetchPosts();
+            }}
+            tintColor={'#1DA1F2'}
+            />
+         }
         >
             <Image
             source={{
@@ -51,6 +81,7 @@ const Profile = () => {
                     />
                     <TouchableOpacity
                     className='border border-gray-300 px-6 py-2 rounded-full'
+                    onPress={openEditModal}
                     >
                         <Text className='font-semibold text-gray-900'>Edit Profile</Text>
                     </TouchableOpacity>
@@ -95,7 +126,16 @@ const Profile = () => {
                     </View>
                 </View>
             </View>
+            <PostsList username={currentUser?.username}/>
         </ScrollView>
+        <EditProfile
+         isVisible={isEditModalVisible}
+         onClose={closeEditModal}
+         formData={formData}
+         saveProfile={saveProfile}
+         updateFormField={updateFormField}
+         isUpdating={isUpdating}
+        />
     </SafeAreaView>
   )
 }
